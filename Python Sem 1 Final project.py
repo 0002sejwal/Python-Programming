@@ -3,7 +3,7 @@ from math import *
 
 # Create the main window
 window = tk.Tk()
-window.geometry("400x600")
+window.geometry("415x600")
 window.config(background="black")
 
 # Global variables
@@ -105,18 +105,14 @@ def show_calculator():
     window.title("Scientific Calculator")
     window.config(background="cyan")
     
-    # Outer frame for shadow effect
-    outer_frame = tk.Frame(window, bg="lightgrey", bd=2)
-    outer_frame.grid(row=0, column=1, columnspan=4, padx=10, pady=10, sticky="nsew")
-
-    # Inner frame to simulate the shadow at the top and left
-    shadow_frame = tk.Frame(outer_frame, bg="darkgrey")
-    shadow_frame.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=2.5)
-
     # Entry box for input and result display
     global entry
-    entry = tk.Entry(shadow_frame, font=("Arial", 20), fg="black", bg="white", justify="right", bd=0)
-    entry.place(relx=0.03, rely=0.03, relwidth=0.95, relheight=0.95)
+    entry = tk.Entry(window, font=("Arial", 20), fg="black", bg="white", justify="right", bd=0, highlightbackground="darkgray", highlightcolor="black", highlightthickness=2)
+    entry.grid(row=0, column=1, columnspan=4, sticky="nsew", padx=5, pady=(5, 10))
+
+    # View History button to the left of the entry box
+    history_button = tk.Button(window, text="History", font=("Arial", 12), command=view_history, bg="grey", fg="white")
+    history_button.grid(row=0, column=0, padx=5, pady=(5, 10), sticky="nsew")
 
     # Button layout for numbers and basic operations
     button_list = [
@@ -156,10 +152,6 @@ def show_calculator():
 
     delete_button = tk.Button(window, text="Del", font=("Arial", 18), command=delete, bg="red", fg="white")
     delete_button.grid(row=5, column=1, padx=5, pady=5, sticky="nsew")
-
-    # View History button to the left of the entry box
-    history_button = tk.Button(window, text="History", font=("Arial", 12), command=view_history, bg="grey", fg="white")
-    history_button.grid(row=0, column=0, padx=5, pady=10, sticky="nsew")
 
     # Configuring grid weights for resizing
     for i in range(6):
